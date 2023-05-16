@@ -9,15 +9,15 @@ SELECT Id, ActivityDate, COUNT(*) AS num_duplicates
  -- Check for duplicate rows in sleepday.
 
  SELECT Id, SleepDay, COUNT(*) AS num_duplicates
- FROM `bellabeat-385419.Bellabeat.sleepday` 
- GROUP BY Id, SleepDay
- ORDER BY num_duplicates DESC
+    FROM `bellabeat-385419.Bellabeat.sleepday` 
+    GROUP BY Id, SleepDay
+    ORDER BY num_duplicates DESC
 
 
  -- Filter out duplicate rows.
  
 SELECT DISTINCT *
-FROM `bellabeat-385419.Bellabeat.sleepday`
+   FROM `bellabeat-385419.Bellabeat.sleepday`
 
 
 -- Find out how many users are in the dataset.
@@ -35,9 +35,9 @@ SELECT MIN(ActivityDate) AS StartDate, MAX(ActivityDate) AS EndDate
   -- Segment our users by how many steps they take. Only average dates for which the tracker was used. We assume dates where the step count was 0, the tracker was not used.
 
   SELECT Id, ROUND(AVG(TotalSteps)) AS AverageDailySteps
-  FROM `bellabeat-385419.Bellabeat.dailyactivity` 
-  WHERE TotalSteps > 0
-  GROUP BY Id
+     FROM `bellabeat-385419.Bellabeat.dailyactivity` 
+     WHERE TotalSteps > 0
+     GROUP BY Id
 
 
   -- Use a case statement to categorize our users according to steps taken.
@@ -52,9 +52,9 @@ SELECT Id,
            WHEN AVG(TotalSteps) > 12500 THEN 'highly active'
            ELSE 'unknown'
        END AS ActivityLevel
-FROM `bellabeat-385419.Bellabeat.dailyactivity` 
-WHERE TotalSteps > 0
-GROUP BY Id
+   FROM `bellabeat-385419.Bellabeat.dailyactivity` 
+   WHERE TotalSteps > 0
+   GROUP BY Id
 
 
 -- Now count the number of users per category using a subquery. 
@@ -244,7 +244,7 @@ GROUP BY Id
 ORDER BY AverageTimeSlept DESC
 
 
--- Now join the dailyactivity information with the sleepdaycleaned information so that individual users are categorized  by activity level, frequency, and time slept. The query is getting overly complicated, so instead of using the JOIN function, I’ve decided to save new tables and then join them. The new dailyactivity information is now in a table called ActivityLevel and the new sleepdaycleaned information is in a table called SleepTime.
+-- Now join the dailyactivity information with the sleepdaycleaned information so that individual users are categorized  by activity level, frequency, and time slept. The query is getting overly complicated, so instead of using the JOIN function, IÂ’ve decided to save new tables and then join them. The new dailyactivity information is now in a table called ActivityLevel and the new sleepdaycleaned information is in a table called SleepTime.
 
 SELECT AL.Id, AL.AverageDailySteps, AL.ActivityLevel, AL.DaysUsed, AL.Frequency, ST.AverageTimeSlept, ST.AverageTimeSleptHrs
  FROM `bellabeat-385419.Bellabeat.ActivityLevel` AS AL
